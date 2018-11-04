@@ -1,0 +1,122 @@
+﻿@model IEnumerable<ModelApp.Common.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Employees </h2>
+<hr />
+<br />
+<p>
+    @Html.ActionLink("Add new employee", "Create", new { }, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-hover">
+    <tr class="info">
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Title.JobTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Section.SectionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Region.RegionName)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.District.DistrictName)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Manager.ManagerID)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>*@
+        @*<th>
+                @Html.DisplayNameFor(model => model.Mobil)
+            </th>*@
+        @*<th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>*@
+        @*<th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>*@
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeNumber)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>*@
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Title.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Section.SectionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region.RegionName)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.District.DistrictName)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Manager.FullName)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>*@
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Mobil)
+                </td>*@
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>*@
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImagePath)
+                </td>*@
+            <td>
+                @Html.ActionLink(" ", "Edit", new { id = item.EmployeeID }, new { @class = "btn btn-success glyphicon glyphicon-pencil", @title = "Edit employee" })
+                @Html.ActionLink(" ", "Details", new { id = item.EmployeeID }, new { @class = "btn btn-info glyphicon glyphicon-info-sign", @title = "Employee Detalj" })
+                @Html.ActionLink(" ", "Delete", new { id = item.EmployeeID }, new { @class = "btn btn-danger glyphicon glyphicon-trash", @title = "Delete employee" })
+            </td>
+        </tr>
+
+    }
+</table>

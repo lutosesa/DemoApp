@@ -1,0 +1,126 @@
+﻿
+Enable-Migrations -ContextTypeName LocalDataContext -MigrationsDirectory Migrations\App
+
+add-migration -ConfigurationTypeName SamhallApp.Backend.Migrations.App.Configuration "InitialDatabaseCreation"
+
+update-database -ConfigurationTypeName SamhallApp.Backend.Migrations.App.Configuration
+
+Update-Database -Script -SourceMigration: $InitialDatabse
+
+
+
+
+
+       public Configuration()
+        {
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
+            MigrationsDirectory = @"Migrations\SIntra";
+        }
+
+
+        protected override void Seed(Models.LocalDataContext context)
+        {
+            TestData.getTitles().ForEach(t => context.Titles.AddOrUpdate(p => p.TitleID, t));
+            context.SaveChanges();
+
+            TestData.getSections().ForEach(s => context.Sections.AddOrUpdate(p => p.SectionID, s));
+            context.SaveChanges();
+
+            TestData.getDistricts().ForEach(d => context.Districts.AddOrUpdate(p => p.DistrictID, d));
+            context.SaveChanges();
+
+            TestData.getRegions().ForEach(r => context.Regions.AddOrUpdate(p => p.RegionID, r));
+            context.SaveChanges();
+
+            TestData.getEmployees().ForEach(e => context.Employees.AddOrUpdate(p => p.EmployeeID, e));
+            context.SaveChanges();
+        }
+
+
+
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().ToTable("User").Property(p => p.Id).HasColumnName("UserId");
+            modelBuilder.Entity<IdentityUserRole>().ToTable("UserRole");
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogin");
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaim").Property(p => p.Id).HasColumnName("UserClaimId");
+            modelBuilder.Entity<IdentityRole>().ToTable("Role").Property(p => p.Id).HasColumnName("RoleId");
+        }
+
+
+
+
+        // GET: api/Employees
+        public IQueryable<EmployeeVM> GetEmployees()
+        {
+            // db.Employees;
+
+            return from e in db.Employees
+                   select new EmployeeVM()
+                   {
+                       EmployeeID = e.EmployeeID,
+                       EmployeeNumber = e.EmployeeNumber,
+                       LastName = e.LastName,
+                       FirstName = e.FirstName,
+                       TitleID = e.Title.TitleID,
+                       RegionID = e.Region.RegionID,
+                       SectionID = e.Section.SectionID,
+                       DistrictID = e.District.DistrictID,
+                       ManagerID = e.Manager.ManagerID,
+                       Phone = e.Phone,
+                       Mobil = e.Mobil,
+                       Email = e.Email,
+                       IsActive = e.IsActive,
+                       Notes = e.Notes,
+                       ImagePath = e.ImagePath
+                   };
+        }
+
+        GET: api/Employees
+        public IQueryable<Employee> GetEmployees()
+        {
+            var employees = db.Employees.Include(e => e.District).Include(e => e.Manager).Include(e => e.Region).Include(e => e.Section).Include(e => e.Title).AsQueryable();
+            return employees;
+
+            return db.Employees.AsQueryable();
+        }
+
+        GET: api/Employees
+        public IQueryable<EmployeeVM> GetEmployees()
+        {
+            return
+             from e in db.Employees
+             join t in db.Titles on e.TitleID equals t.TitleID
+             join r in db.Regions on e.RegionID equals r.RegionID
+             join s in db.Sections on e.SectionID equals s.SectionID
+             join d in db.Districts on e.DistrictID equals d.DistrictID
+             join m in db.Employees on e.EmployeeID equals m.ManagerID
+             select new EmployeeVM()
+             {
+                 EmployeeID = e.EmployeeID,
+                 EmployeeNumber = e.EmployeeNumber,
+                 LastName = e.LastName,
+                 FirstName = e.FirstName,
+                 TitleID = t.TitleID,
+                 RegionID = r.RegionID,
+                 SectionID = s.SectionID,
+                 DistrictID = d.DistrictID,
+                 ManagerID = m.ManagerID,
+                 Phone = e.Phone,
+                 Mobil = e.Mobil,
+                 Email = e.Email,
+                 IsActive = e.IsActive,
+                 Notes = e.Notes,
+                 ImagePath = e.ImagePath
+             };
+        }
+
+
+		 var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+            config.Formatters.JsonFormatter.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;

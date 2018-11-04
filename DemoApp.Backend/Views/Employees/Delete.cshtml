@@ -1,0 +1,143 @@
+﻿@model ModelApp.Common.Models.Employee
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete employee @ViewBag.EmployeeFullName </h2>
+
+<h3>Are you sure you want to delete employee @ViewBag.EmployeeName?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title.JobTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title.JobTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Section.SectionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Section.SectionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region.RegionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region.RegionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.District.DistrictName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.District.DistrictName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Manager.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Manager.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mobil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mobil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+
+        <dt><br /></dt>
+        <dd></dd>
+        <dt></dt>
+        <dd>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </div>
+            }
+        </dd>
+    </dl>
+    <br />
+    <div>
+        @Html.ActionLink("Back to List ", "Index", new { }, new { @class = "btn btn-default" })
+    </div>
+</div>
